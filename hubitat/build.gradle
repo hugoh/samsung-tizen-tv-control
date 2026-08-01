@@ -1,0 +1,40 @@
+plugins {
+    id 'groovy'
+    id 'codenarc'
+}
+
+codenarc {
+    toolVersion = '1.6.1'
+    configFile = file('config/codenarc/codenarc.xml')
+}
+
+// The driver script lives at the project root rather than under
+// src/main/groovy (Hubitat loads it as a single standalone file, not a
+// compiled artifact), so it's never part of the "main" sourceSet's compile
+// source - pointing codenarcMain straight at it lets CodeNarc scan it
+// without also making compileGroovy try (and fail) to compile it against a
+// classpath that only has the Hubitat API types via testImplementation.
+codenarcMain {
+    source = fileTree(dir: projectDir, include: '*.groovy')
+}
+
+sourceSets {
+    test {
+        groovy {
+            srcDirs = ['src/test/groovy']
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://biocomp.pkgs.visualstudio.com/HubitatCiRelease/_packaging/hubitat_ci_feed@Release/maven/v1'
+    }
+}
+
+dependencies {
+    testImplementation 'org.codehaus.groovy:groovy-all:2.5.4'
+    testImplementation 'org.spockframework:spock-core:1.2-groovy-2.5'
+    testImplementation 'me.biocomp.hubitat_ci:hubitat_ci:0.17'
+}

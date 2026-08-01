@@ -1,0 +1,12 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["github>hugoh/renovate-config", ":preserveSemverRanges"],
+	"packageRules": [
+		{
+			"matchManagers": ["mise"],
+			"matchDepNames": ["java", "gradle"],
+			"enabled": false,
+			"description": "Pinned for hubitat_ci:0.17 compatibility (Groovy 2.5.4 / Spock 1.2-groovy-2.5, which cap the usable JDK/Gradle range) - do not auto-upgrade."
+		}
+	]
+}

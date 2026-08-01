@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://codenarc.org/ruleset/1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://codenarc.org/ruleset/1.0 http://codenarc.org/ruleset-schema.xsd">
+
+    <description>
+        CodeNarc ruleset for this repo's Hubitat driver: a small, solo
+        hobby-project codebase. Sticks to CodeNarc's built-in rulesets that
+        catch real bugs and dead code, and skips rulesets aimed at large
+        enterprise codebases (design/size limits, javadoc completeness) or
+        naming conventions that would conflict with Hubitat's own DSL
+        (metadata {}/preferences {} closures, callback method names).
+    </description>
+
+    <ruleset-ref path="rulesets/basic.xml"/>
+    <ruleset-ref path="rulesets/braces.xml"/>
+
+    <!--
+      exceptions.xml, minus two rules that fight this driver's legitimate
+      HTTP-polling design rather than catching real bugs:
+
+      - CatchException: httpGet() against the TV's local REST API can throw
+        any of several unrelated exception types (SocketTimeoutException,
+        UnknownHostException, ConnectException, ...) depending on why the TV
+        is unreachable, and every call site treats all of them identically
+        ("couldn't reach the TV"). Catching the specific subtypes instead
+        would multiply each catch block for no behavioral benefit here.
+      - ReturnNullFromCatchBlock: queryPowerStateOnce() deliberately returns
+        null as a real gone-away-vs-off sentinel (distinct from the 'off'
+        string), which getPowerState() uses to decide whether to retry -
+        this is intentional control flow, not a swallowed error.
+    -->
+    <ruleset-ref path="rulesets/exceptions.xml">
+        <exclude name="CatchException"/>
+        <exclude name="ReturnNullFromCatchBlock"/>
+    </ruleset-ref>
+
+    <ruleset-ref path="rulesets/imports.xml"/>
+    <ruleset-ref path="rulesets/unused.xml"/>
+
+    <!--
+      unnecessary.xml, with UnnecessaryGetter scoped away from the driver
+      file itself: SamsungTizenTvControl.groovy's getPowerState() is a top-level
+      script method, not a bean getter on some other object, and its many
+      callers within the same script rely on being able to call it
+      explicitly as getPowerState(). Hubitat loads this file into its own
+      sandboxed script/binding environment (distinct from plain Groovy), so
+      rewriting those self-calls to bare `powerState` property access is a
+      real (if small) behavioral risk this project isn't taking just to
+      satisfy a style rule - the rule still applies to the test file, where
+      the getters in question belong to ordinary objects.
+    -->
+    <ruleset-ref path="rulesets/unnecessary.xml">
+        <rule-config name="UnnecessaryGetter">
+            <property name="doNotApplyToFilesMatching" value=".*SamsungTizenTvControl\.groovy"/>
+        </rule-config>
+    </ruleset-ref>
+</ruleset>

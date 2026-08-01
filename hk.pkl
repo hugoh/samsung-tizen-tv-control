@@ -1,0 +1,42 @@
+amends "package://github.com/jdx/hk/releases/download/v1.53.0/hk@1.53.0#/Config.pkl"
+import "package://github.com/jdx/hk/releases/download/v1.53.0/hk@1.53.0#/Builtins.pkl"
+import "package://github.com/hugoh/hk-config/releases/download/v1.2.5/hk-config@1.2.5#/base.pkl" as Base
+
+min_hk_version = Base.min_hk_version
+
+local linters = new Mapping<String, Step> {
+    ...Base.base
+    ...Base.python
+    ["ty"] = (Builtins.ty) {
+        exclude = List("cli/samsung_tizen_tv_control.py")
+    }
+    // Gradle's core `codenarc` plugin has no dedicated Builtin here; `gradle`
+    // itself already resolves to the mise-pinned 5.4.1 shim (mise's shims
+    // dir is on PATH, same as `mise run test`), so no `mise exec --` prefix
+    // is needed.
+    ["codenarc"] = {
+        glob = List("hubitat/**/*.groovy")
+        check = "gradle -p hubitat codenarcMain codenarcTest"
+    }
+}
+
+hooks {
+    ["pre-commit"] {
+        fix = true
+        stash = "git"
+        steps = linters
+    }
+    ["pre-push"] {
+        steps = linters
+    }
+    ["check"] {
+        steps = linters
+    }
+    ["fix"] {
+        fix = true
+        steps = linters
+    }
+    ["commit-msg"] {
+        steps = Base.commit_msg
+    }
+}

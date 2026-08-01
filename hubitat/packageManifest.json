@@ -1,0 +1,19 @@
+{
+	"packageName": "samsung-tizen-tv-control",
+	"version": "0.1.0",
+	"documentationLink": "https://github.com/hugoh/samsung-tizen-tv-control/blob/main/README.md",
+	"author": "Hugo Haas",
+	"category": "Integrations",
+	"tags": "LAN",
+	"drivers": [
+		{
+			"id": "6932BD4B-E14B-4C62-9E56-86CD71AE0954",
+			"name": "Samsung Tizen TV Control",
+			"namespace": "hugoh",
+			"location": "https://raw.githubusercontent.com/hugoh/samsung-tizen-tv-control/main/hubitat/SamsungTizenTvControl.groovy",
+			"required": true,
+			"oauth": false,
+			"description": "Local control of a Samsung Tizen TV - power, HDMI1 input, no cloud dependency"
+		}
+	]
+}
