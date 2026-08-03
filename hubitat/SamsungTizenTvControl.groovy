@@ -46,7 +46,7 @@ void installed() {
 }
 
 void updated() {
-    logInfo("updated: deviceIp=${deviceIp}, driverVersion=${DRIVER_VERSION}")
+    log.info("updated: deviceIp=${deviceIp}, driverVersion=${DRIVER_VERSION}")
     try {
         httpGet([uri: "http://${deviceIp}:8001/api/v2/", timeout: 5]) { resp ->
             String mac = resp.data.device.wifiMac
@@ -58,14 +58,14 @@ void updated() {
             }
         }
     } catch (Exception ex) {
-        logWarn("updated: could not reach TV to fetch MAC (${ex.message})")
+        log.warn("updated: could not reach TV to fetch MAC (${ex.message})")
     }
 }
 
 boolean sendWol() {
     String mac = wolMac ?: device.deviceNetworkId
     if (!mac) {
-        logWarn('sendWol: no MAC address known - run updated() while the TV is reachable first, ' +
+        log.warn('sendWol: no MAC address known - run updated() while the TV is reachable first, ' +
             'or set the wolMac preference')
         return false
     }
@@ -191,7 +191,7 @@ void parse(String message) {
         if (newToken && newToken != state.token) {
             state.token = newToken
             device.updateSetting('tvWsToken', [type: 'text', value: newToken])
-            logInfo('parse: pairing token updated')
+            log.info('parse: pairing token updated')
         }
         if (state.pendingMessage) {
             interfaces.webSocket.sendMessage(state.pendingMessage)
@@ -213,14 +213,10 @@ void webSocketStatus(String message) {
     if (state.expectedClose) {
         return
     }
-    logWarn("webSocketStatus: ${message}")
+    log.warn("webSocketStatus: ${message}")
     interfaces.webSocket.close()
 }
 
 void logDebug(String msg) {
     if (logEnable) { log.debug(msg) }
 }
-
-void logInfo(String msg) { log.info(msg) }
-
-void logWarn(String msg) { log.warn(msg) }
