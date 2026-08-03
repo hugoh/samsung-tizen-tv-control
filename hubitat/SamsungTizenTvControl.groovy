@@ -145,7 +145,7 @@ void sendKeyInternal(String key) {
 }
 
 void connect() {
-    String name = 'Hubitat Tizen TV'.bytes.encodeBase64().toString()
+    String name = 'Hubitat Tizen TV'.bytes.encodeBase64()
     String url = "wss://${deviceIp}:8002/api/v2/channels/samsung.remote.control?name=${name}"
     String token = tvWsToken ?: state.token
     if (token) {
