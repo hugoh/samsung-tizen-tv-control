@@ -161,7 +161,7 @@ void sendMessage(String data) {
 }
 
 void inputHdmi1() {
-    sendKeySequence([KEY_SOURCE, KEY_DOWN, KEY_ENTER])
+    sendKeySequence([KEY_SOURCE, KEY_LEFT, KEY_UP, KEY_UP, KEY_DOWN, KEY_ENTER])
 }
 
 void sendKeySequence(List<String> keys) {
