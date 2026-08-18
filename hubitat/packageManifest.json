@@ -1,6 +1,6 @@
 {
 	"packageName": "samsung-tizen-tv-control",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"documentationLink": "https://github.com/hugoh/samsung-tizen-tv-control/blob/main/README.md",
 	"author": "Hugo Haas",
 	"category": "Integrations",
