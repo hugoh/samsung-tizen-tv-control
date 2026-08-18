@@ -13,6 +13,8 @@ import groovy.transform.Field
 @Field static final String DRIVER_VERSION = '0.1.0'
 @Field static final String KEY_POWER = 'KEY_POWER'
 @Field static final String KEY_SOURCE = 'KEY_SOURCE'
+@Field static final String KEY_LEFT = 'KEY_LEFT'
+@Field static final String KEY_UP = 'KEY_UP'
 @Field static final String KEY_DOWN = 'KEY_DOWN'
 @Field static final String KEY_ENTER = 'KEY_ENTER'
 
@@ -161,7 +163,7 @@ void sendMessage(String data) {
 }
 
 void inputHdmi1() {
-    sendKeySequence([KEY_SOURCE, KEY_DOWN, KEY_ENTER])
+    sendKeySequence([KEY_SOURCE, KEY_LEFT, KEY_UP, KEY_UP, KEY_DOWN, KEY_ENTER])
 }
 
 void sendKeySequence(List<String> keys) {
