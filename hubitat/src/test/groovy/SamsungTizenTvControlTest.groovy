@@ -298,7 +298,7 @@ class SamsungTizenTvControlTest extends Specification {
 
         and:
             new JsonSlurper().parseText(sentJson).params.DataOfCmd == 'KEY_SOURCE'
-            stateMap.pendingKeys == ['KEY_DOWN', 'KEY_ENTER']
+            stateMap.pendingKeys == ['KEY_LEFT', 'KEY_UP', 'KEY_UP', 'KEY_DOWN', 'KEY_ENTER']
     }
 
     def "sendNextQueuedKey sends KEY_DOWN and schedules KEY_ENTER next"() {
