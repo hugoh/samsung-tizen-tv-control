@@ -1,6 +1,19 @@
+[tasks.test]
+description = "Run Hubitat driver tests"
+dir = "hubitat"
+run = "gradle build"
+
+[tasks.bump-version]
+description = "Bump the driver version everywhere it's needed (usage: mise run bump-version -- 0.2.0)"
+run = "scripts/bump-version.sh"
+
 [tools]
 hk = "2.4.0"
 uv = "0.12.19"
+jq = "1.8.2"
+ruff = "0.16.9"
+java = "temurin-11"
+gradle = "5.4.1"
 actionlint = "1.7.12"
 pinact = "5.0.0"
 zizmor = "1.30.1"
