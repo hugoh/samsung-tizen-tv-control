@@ -8,7 +8,7 @@ description = "Bump the driver version everywhere it's needed (usage: mise run b
 run = "scripts/bump-version.sh"
 
 [tools]
-hk = "2.4.0"
+hk = "2.5.0"
 uv = "0.12.22"
 jq = "1.8.2"
 ruff = "0.16.10"
