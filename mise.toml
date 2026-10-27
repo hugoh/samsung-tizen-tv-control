@@ -8,13 +8,13 @@ description = "Bump the driver version everywhere it's needed (usage: mise run b
 run = "scripts/bump-version.sh"
 
 [tools]
-hk = "2.5.0"
+hk = "2.9.0"
 uv = "0.13.1"
 jq = "1.8.2"
 ruff = "0.16.10"
 java = "temurin-11"
 gradle = "5.4.1"
-actionlint = "1.7.12"
+jactionlint = "2.2.0"
 pinact = "5.0.0"
 zizmor = "1.30.1"
 ghalint = "1.5.6"
