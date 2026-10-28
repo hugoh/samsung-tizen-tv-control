@@ -1,4 +1,7 @@
-[rules]
+[lint.rules]
 # Enable some basic rules
 truthy = true
 line-length = { max = 120 }
+
+[format]
+comment-spacing = 1
