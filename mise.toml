@@ -9,7 +9,7 @@ run = "scripts/bump-version.sh"
 
 [tools]
 hk = "2.9.0"
-uv = "0.13.1"
+uv = "0.13.5"
 jq = "1.8.2"
 ruff = "0.16.10"
 java = "temurin-11"
