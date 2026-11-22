@@ -7,6 +7,16 @@
 			"matchDepNames": ["java", "gradle"],
 			"enabled": false,
 			"description": "Pinned for hubitat_ci:0.17 compatibility (Groovy 2.5.4 / Spock 1.2-groovy-2.5, which cap the usable JDK/Gradle range) - do not auto-upgrade."
+		},
+		{
+			"matchPackageNames": ["org.codehaus.groovy:groovy-all"],
+			"allowedVersions": "/^2\\./",
+			"description": "hubitat_ci:0.17 and Spock 1.3-groovy-2.5 need Groovy 2.5; groovy-all 3.x breaks the Spock transform (compileTestGroovy fails)."
+		},
+		{
+			"matchPackageNames": ["org.spockframework:spock-core"],
+			"allowedVersions": "/-groovy-2\\.5$/",
+			"description": "Stay on the groovy-2.5 build of Spock to match groovy-all 2.5.x."
 		}
 	]
 }
